@@ -182,13 +182,19 @@ var promptconcert = function() {
                 } else{
                     var jsondata = JSON.parse(data);
                         if (jsondata.length === 0) {
-                            var errdata = `${userinput.Name} searched for: ${userinput} but gor an error <${response}>`
+                            var errdata = `${userinput.Name} searched for: ${artistquery} but gor an error <${response}>`
                             console.log("Whoops, looks like this artist has no upcoming shows, try looking up someone else!")
                             fs.appendFile("log.txt", errdata + divider, function(err) {
                                 if (err) throw err;
                             });
                             promptconcert();
                         } else {
+                            var logdata = `${userinput.Name} queried: ${URL} and received ${jsondata.length} hits`
+
+                            fs.appendFile("log.txt", logdata + divider, function(err) {
+                                if (err) throw err;
+                              }); 
+                        
                             for (i=0; i<jsondata.length; i++) {
                             var thisconcert = jsondata[i]
 

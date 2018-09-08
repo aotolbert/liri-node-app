@@ -10,3 +10,15 @@ Adam Searched for:A Milli By: Lil Wayne Album: Tha Carter III
 Adam Tolbert Searched for: Waterworld Rated: PG-13 Starring: Kevin Costner, Chaim Jeraffi, Rick Aviles, R.D. Call Released: 28 Jul 1995
 ------------------------------------------------------------
 
+Adam searched for: Dave%20Matthews and received 3 hits
+------------------------------------------------------------
+
+Adam queried: https://rest.bandsintown.com/artists/Dave%20Matthews/events?app_id=7bbb8d11c0827edee4d3e6fed11a78ef and received 3 hits
+------------------------------------------------------------
+
+Adam Tolbert Searched for:That Girl Is You By: Dave Matthews Band Album: Come Tomorrow
+------------------------------------------------------------
+
+Adam Tolbert searched for: Pulp Fiction Rated: R Starring: Tim Roth, Amanda Plummer, Laura Lovelace, John Travolta Released: 14 Oct 1994
+------------------------------------------------------------
+
