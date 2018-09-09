@@ -64,7 +64,7 @@ if (process.argv[2] === "movie-this") {
     
     // console.log(mymovies)
     // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    var logdata = `${userinput.Name} searched for: ${mymovies.Title} Rated: ${mymovies.Rated} Starring: ${mymovies.Actors} Released: ${mymovies.Released}`
+    var logdata = `On: ${moment().format('MMMM Do YYYY, h:mm:ss a')}, ${userinput.Name} searched for: ${mymovies.Title} Rated: ${mymovies.Rated} Starring: ${mymovies.Actors} Released: ${mymovies.Released}`
 
     fs.appendFile("log.txt", logdata + divider, function(err) {
         if (err) throw err;
@@ -75,8 +75,9 @@ if (process.argv[2] === "movie-this") {
 
 if (process.argv[2] === "spotify-this-song") {
     
-        
+
     var promptsong = function() {
+        
         inquirer.prompt([
             {
                 type: "input",
@@ -105,6 +106,8 @@ if (process.argv[2] === "spotify-this-song") {
         var songartist  = (data.tracks.items[`${iterator}`].album.artists[`${iterator}`].name)
         var songalbum = (data.tracks.items[`${iterator}`].album.name);
         var songname = (data.tracks.items[`${iterator}`].name)
+
+        // console.log(`The Current time is: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`)
     
         console.log(chalk.bgRed("Title: " + songname));
         console.log(chalk.bgRed("By: " + songartist));
@@ -124,15 +127,23 @@ if (process.argv[2] === "spotify-this-song") {
                 if (isong.correctsong) {
                     console.log("Nice! Glad to hear you like that song. Its one of my favorites too!")
                     console.log(chalk.bgGreen(chalk.black("You can listen to that song here: " + chalk.bgRed(data.tracks.items[`${iterator}`].external_urls.spotify))));
-                    var logdata = `${userinput.Name} Searched for:${songname} By: ${songartist} Album: ${songalbum}`
-                    var divider =
-                    "\n------------------------------------------------------------\n\n";
+                    var logdata = `On: ${moment().format('MMMM Do YYYY, h:mm:ss a')}, ${userinput.Name} Searched for: "${songname}" By: ${songartist} on Album: ${songalbum}`
                    
                     fs.appendFile("log.txt", logdata + divider, function(err) {
                         if (err) throw err;
                       }); 
                 } else {
                     iterator++
+                    if (!data.tracks.items[`${iterator}`]) {
+                        console.log(chalk.bgRed("Looks like that's all the songs with that name I could find... How about another search?"));
+                        var logdata = `On: ${moment().format('MMMM Do YYYY, h:mm:ss a')}, ${userinput.Name} Searched for songs with the title "${userinput.song}" And ran through ${iterator} suggestions but couldn't find anything`
+                   
+                        fs.appendFile("log.txt", logdata + divider, function(err) {
+                            if (err) throw err;
+                          }); 
+                        promptsong();
+                    }
+                    else {
                     console.log("Oh No! That must be a more current song with a similar name, how about this one?")
                     console.log(chalk.bgRed("Title: " + data.tracks.items[`${iterator}`].name));
                     console.log(chalk.bgRed("Artist: " + data.tracks.items[`${iterator}`].album.artists[0].name));
@@ -140,7 +151,7 @@ if (process.argv[2] === "spotify-this-song") {
                     nextsong();
                 }
 
-            });
+            }});
 
 
             }
@@ -182,14 +193,14 @@ var promptconcert = function() {
                 } else{
                     var jsondata = JSON.parse(data);
                         if (jsondata.length === 0) {
-                            var errdata = `${userinput.Name} searched for: ${artistquery} but gor an error <${response}>`
+                            var errdata = `On: ${moment().format('MMMM Do YYYY, h:mm:ss a')}, ${userinput.Name} searched for: ${artistquery} but gor an error <${response}>`
                             console.log("Whoops, looks like this artist has no upcoming shows, try looking up someone else!")
                             fs.appendFile("log.txt", errdata + divider, function(err) {
                                 if (err) throw err;
                             });
                             promptconcert();
                         } else {
-                            var logdata = `${userinput.Name} queried: ${URL} and received ${jsondata.length} hits`
+                            var logdata = `On: ${moment().format('MMMM Do YYYY, h:mm:ss a')}, ${userinput.Name} queried: ${URL} and received ${jsondata.length} hits`
 
                             fs.appendFile("log.txt", logdata + divider, function(err) {
                                 if (err) throw err;
@@ -223,7 +234,7 @@ var promptconcert = function() {
 
         })};
 
-        promptconcert()
+        promptconcert();
     }
 
 
